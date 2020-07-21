@@ -21,6 +21,15 @@
   :ensure t
   :pin melpa)
 
+(use-package eclim
+  :ensure t
+  :pin melpa)
+(add-hook 'java-mode-hook 'eclim-mode)
+(custom-set-variables
+ '(eclim-eclipse-dirs '("~/eclipse/java-2020/Eclipse.app/Contents/MacOS/eclipse"))
+ '(eclim-executable "~/.p2/pool/plugins/org.eclim_2.8.0/bin/eclim")
+ '(eclimd-executable "~/eclipse/java-2020-03/Eclipse.app/Contents/Eclipse/eclimd")
+ '(eclimd-default-workspace "~/eclipse-workspace/"))
 
 (use-package ensime
   :ensure t
@@ -82,13 +91,17 @@
 
 (use-package elpy
   :ensure t
+  :init
+  (elpy-enable)
   :config
   (setq elpy-rpc-python-command "python3"))
 
-(setq python-shell-interpreter "/usr/local/bin/python3"
-      python-shell-prompt-detect-failure-warning nil)
+(when (load "flycheck" t t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
 
-(elpy-enable)
+(setq python-shell-interpreter "python3"
+      python-shell-prompt-detect-failure-warning nil)
 
 (use-package ein
   :pin melpa
@@ -112,7 +125,7 @@
  '(custom-enabled-themes (quote (tango-dark)))
  '(package-selected-packages
    (quote
-    (flycheck jedi ein vue-html-mode vue-mode ensime use-package))))
+    (eclim json-mode haskell-mode flycheck jedi ein vue-html-mode vue-mode ensime use-package))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -124,3 +137,11 @@
 (setq js-indent-level 2)
 
 (put 'upcase-region 'disabled nil)
+
+
+
+;; Haskell stuff
+
+(use-package haskell-mode
+  :ensure t)
+(put 'downcase-region 'disabled nil)
