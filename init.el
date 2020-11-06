@@ -30,7 +30,8 @@
    ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf" "#eeeeec"])
  '(custom-enabled-themes '(tsdh-dark))
  '(ivy-mode t)
- '(package-selected-packages '(magit flycheck elpy yaml-mode ivy evil use-package)))
+ '(package-selected-packages
+   '(vterm poetry magit flycheck elpy yaml-mode ivy evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -58,8 +59,11 @@
   :init
   (elpy-enable)
   :config
-  (setq elpy-rpc-python-command "python3"))
+  (setq elpy-rpc-virtualenv-path 'current))
 
 (when (load "flycheck" t t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+(define-key flycheck-mode-map (kbd "C-c n") #'flycheck-next-error)
+(define-key flycheck-mode-map (kbd "C-c p") #'flycheck-previous-error)
