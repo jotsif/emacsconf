@@ -92,3 +92,6 @@
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "C-c g") 'magit-file-popup)
+
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
