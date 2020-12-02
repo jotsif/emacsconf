@@ -93,5 +93,8 @@
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "C-c g") 'magit-file-popup)
 
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings))
+(define-key evil-normal-state-map (kbd "H")  'windmove-left)
+(define-key evil-normal-state-map (kbd "L")  'windmove-right)
+(define-key evil-normal-state-map (kbd "J")  'windmove-down)
+(define-key evil-normal-state-map (kbd "K")  'windmove-up)
+(define-key evil-motion-state-map (kbd "K")  'windmove-up)
