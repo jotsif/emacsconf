@@ -16,6 +16,9 @@
 (use-package ivy
   :ensure t
   :pin melpa)
+
+(setq evil-want-keybinding nil)
+
 (use-package evil
   :ensure t
   :pin melpa)
@@ -31,7 +34,7 @@
  '(custom-enabled-themes '(tsdh-dark))
  '(ivy-mode t)
  '(package-selected-packages
-   '(projectile poetry counsel magit flycheck elpy yaml-mode ivy evil use-package)))
+   '(evil-collection projectile poetry counsel magit flycheck elpy yaml-mode ivy evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -54,13 +57,29 @@
 
 (use-package magit
   :ensure t
+  :pin melpa
   :bind (("C-x g" . magit-status)))
+
+(use-package evil-collection
+  :ensure t
+  :pin melpa)
+
+(evil-collection-init)
+
+
 (use-package elpy
   :ensure t
   :init
   (elpy-enable)
   :config
   (setq elpy-rpc-virtualenv-path 'current))
+
+(setq elpy-rpc-backend "jedi")
+(setq jedi:complete-on-dot t)
+
+(add-hook 'python-mode-hook '(lambda () 
+ (setq python-indent 4)))
+
 (use-package company
   :ensure t)
 
@@ -98,3 +117,6 @@
 (define-key evil-normal-state-map (kbd "J")  'windmove-down)
 (define-key evil-normal-state-map (kbd "K")  'windmove-up)
 (define-key evil-motion-state-map (kbd "K")  'windmove-up)
+
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
