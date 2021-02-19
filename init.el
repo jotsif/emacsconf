@@ -60,12 +60,6 @@
   :pin melpa
   :bind (("C-x g" . magit-status)))
 
-(use-package evil-collection
-  :ensure t
-  :pin melpa)
-
-(evil-collection-init)
-
 
 (use-package elpy
   :ensure t
@@ -74,6 +68,10 @@
   :config
   (setq elpy-rpc-virtualenv-path 'current))
 
+(add-hook 'elpy-mode-hook (lambda ()
+                            (add-hook 'before-save-hook
+                                      'elpy-black-fix-code nil t)))
+
 (setq elpy-rpc-backend "jedi")
 (setq jedi:complete-on-dot t)
 
@@ -81,7 +79,10 @@
  (setq python-indent 4)))
 
 (use-package company
+  :pin melpa
   :ensure t)
+
+ (add-hook 'company-mode-hook 'company-tng-mode)
 
 (when (load "flycheck" t t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
@@ -120,3 +121,10 @@
 
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
+(use-package evil-collection
+ :ensure t
+ :pin melpa)
+
+(evil-collection-init)
+
