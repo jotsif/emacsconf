@@ -34,7 +34,7 @@
  '(custom-enabled-themes '(tsdh-dark))
  '(ivy-mode t)
  '(package-selected-packages
-   '(evil-collection projectile poetry counsel magit flycheck elpy yaml-mode ivy evil use-package)))
+   '(evil-collection counsel company-jedi elpy magit flycheck projectile evil ivy use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -46,10 +46,6 @@
 (ivy-mode 1)
 (use-package projectile
   :ensure t)
-
-(use-package yaml-mode
-  :ensure t
-  :pin melpa)
 
 (use-package flycheck
   :ensure t
@@ -82,7 +78,11 @@
   :pin melpa
   :ensure t)
 
- (add-hook 'company-mode-hook 'company-tng-mode)
+;(add-hook 'company-mode-hook 'company-tng-mode)
+
+(use-package company-jedi
+	     :pin melpa
+	     :ensure t)
 
 (when (load "flycheck" t t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
@@ -128,3 +128,4 @@
 
 (evil-collection-init)
 
+(setq elpy-shell-echo-output nil)
